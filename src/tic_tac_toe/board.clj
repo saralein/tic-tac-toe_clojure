@@ -14,5 +14,5 @@
   (not-any? is-empty? board))
 
 (defn add-move
-  [move board]
-  (assoc board move "X"))
+  [player board move]
+  (assoc board move (get player :token)))

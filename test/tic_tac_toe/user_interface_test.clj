@@ -11,7 +11,8 @@
 (def board-3x3 [" " " " " "
                 " " " " " "
                 " " " " " "])
-(def board-string-3x3 (str row-3x3 divider-3x3 row-3x3 divider-3x3 row-3x3 "\n\n"))
+
+(def board-string-3x3 (str "\n" row-3x3 divider-3x3 row-3x3 divider-3x3 row-3x3 "\n\n"))
 (def clear-string (format "\033[2J"))
 
 (deftest requesting-move

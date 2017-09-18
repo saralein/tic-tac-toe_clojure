@@ -8,10 +8,10 @@
 
 (def full-3x3
   (vec (repeat 9 'X')))
-
 (def move-added [" " " " " "
                  " " "X" " "
                  " " " " " "])
+(def player {:type :human :token "X"})
 
 (deftest making-a-new-board
   (testing "creates an empty board based on size"
@@ -35,4 +35,4 @@
 
 (deftest adds-move-to-board
   (testing "it correctly adds move to board"
-    (is (= move-added (add-move 4 new-3x3)))))
+    (is (= move-added (add-move player new-3x3 4)))))

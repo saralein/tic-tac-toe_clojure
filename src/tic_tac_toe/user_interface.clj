@@ -37,7 +37,7 @@
 
 (defn board-string
   [message board]
-  (conj message (apply str (map #(str " " (board %) " " (append-spot % board)) (range 9)))))
+  (conj message (str "\n" (apply str (map #(str " " (board %) " " (append-spot % board)) (range 9))))))
 
 (defn clear
   [message]

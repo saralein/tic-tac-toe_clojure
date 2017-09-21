@@ -14,12 +14,13 @@
     (cond
       (= spot length) "\n\n"
       (= (mod spot size) 0) (add-divider size)
-      :else " | "
-      )))
+      :else " | ")))
 
 (defn create-string
   [board]
-  (apply str (map #(str " " (board %) " " (append-spot % board)) (range 9))))
+  (->> (map #(str " " (board %) " " (append-spot % board)) (range 9))
+       (apply str)
+       (str "\n")))
 
 (defn board-display
   [board message]

@@ -5,12 +5,12 @@
             [tic-tac-toe.user-interface :as ui]))
 
 (defn request-move
-  [game-ui player1]
-  (-> (player/pick-move player1 game-ui)
-      (referee/validate-move)))
+  [game-ui player board]
+  (->> (player/pick-move player game-ui board)
+        (referee/validate-move player)))
 
 (defn take-turn*
-  [game-ui player1 board]
-  (ui/prompt-move game-ui board)
-  (-> (request-move game-ui player1)
-      (board/add-move board)))
+  [game-ui player board]
+  (ui/prompt-move game-ui board player)
+  (-> (request-move game-ui player board)
+      (board/add-move board player)))

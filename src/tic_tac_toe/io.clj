@@ -1,15 +1,17 @@
 (ns tic-tac-toe.io)
 
 (defprotocol IO
-  (user-input [x])
-  (display [x message])
-  (clear-io [x]))
+  (user-input [this])
+  (display [this message])
+  (clears [this])
+  (flushes [this]))
 
 (defrecord ConsoleIO []
   IO
-  (user-input [x] (flush)(read-line))
-  (display [x message] (print message))
-  (clear-io [x] (print (format "\033[2J"))))
+  (user-input [this] (.flushes this) (read-line))
+  (display [this message] (print message) (.flushes this))
+  (clears [this] (print (format "\033[2J")))
+  (flushes [this] (flush)))
 
 (defn create-console-io []
   (map->ConsoleIO {}))

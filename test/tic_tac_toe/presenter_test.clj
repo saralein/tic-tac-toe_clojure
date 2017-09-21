@@ -1,18 +1,18 @@
-(ns tic-tac-toe.user-interface-test
+(ns tic-tac-toe.presenter-test
   (:use [clojure.test :refer :all]
         [tic-tac-toe.mocks.mock-io :as io]
-        [tic-tac-toe.user-interface :refer :all]))
+        [tic-tac-toe.presenter :refer :all]))
 
 (def divider "\n--- + --- + ---\n")
 (def divider-4x4 "\n--- + --- + --- + ---\n")
 (def row "    |     |    ")
 (def board [" " " " " " " " " " " " " " " " " "])
-(def board-string (str row divider row divider row "\n\n"))
+(def board-string (str "\n" row divider row divider row "\n\n"))
 
 (deftest creates-divider-for-board-display
 (testing "returns divider of correct length"
-  (is (= divider (row-divider 3)))
-  (is (= divider-4x4 (row-divider 4)))))
+  (is (= divider (add-divider 3)))
+  (is (= divider-4x4 (add-divider 4)))))
 
 (deftest appends-spot-correctly
 (testing "returns correct string for spot"
@@ -22,4 +22,4 @@
 
 (deftest creates-board-string
 (testing "creates and returns correct board string"
-  (is (= board-string (create-string [] board)))))
+  (is (= board-string (create-string board)))))

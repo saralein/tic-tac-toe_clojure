@@ -2,14 +2,15 @@
   (:use [clojure.math.numeric-tower :only [sqrt]]
         [clojure.string :only [join]])
   (:require [tic-tac-toe.io :as io]
-            [tic-tac-toe.messenger :as messenger]
+            [tic-tac-toe.announcer :as announcer]
             [tic-tac-toe.presenter :as presenter]))
 
 (defprotocol UI
   (update-display [this message])
   (get-input [this])
-  (clear-ui [this])
-  (prompt-move [this board])
+  (clear-src [this])
+  (pause [this])
+  (prompt-move [this board player])
   (prompt-gameover [this board]))
 
 (defrecord ConsoleUI [game-io]
@@ -22,24 +23,28 @@
     [this]
     (io/user-input game-io))
 
-  (clear-ui
+  (clear-src
     [this]
-    (io/clear-io game-io))
+    (io/clears game-io))
+
+  (pause
+    [this]
+    (Thread/sleep 1000))
 
   (prompt-move
-    [this board]
-    (.clear-ui this)
+    [this board player]
+    (.clear-src this)
     (->> []
+      (announcer/announce-turn player)
       (presenter/board-display board)
-      (messenger/move-request board)
       (.update-display this)))
 
   (prompt-gameover
     [this board]
-    (.clear-ui this)
+    (.clear-src this)
     (->> []
       (presenter/board-display board)
-      (messenger/gameover)
+      (announcer/gameover)
       (.update-display this))))
 
 (defn create-ui [game-io]

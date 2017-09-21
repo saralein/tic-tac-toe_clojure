@@ -1,9 +1,12 @@
 (ns tic-tac-toe.core
   (:gen-class)
   (:require [tic-tac-toe.board :as board]
+            [tic-tac-toe.computer :as computer]
             [tic-tac-toe.game :as game]
+            [tic-tac-toe.human :as human]
             [tic-tac-toe.io :as io]
             [tic-tac-toe.player :as player]
+            [tic-tac-toe.referee :as referee]
             [tic-tac-toe.setup :as setup]
             [tic-tac-toe.user-interface :as ui]))
 
@@ -13,8 +16,9 @@
          current current
          opponent opponent
          board board]
-    (if (board/full? board)
-      (ui/prompt-gameover game-ui board)
+    (if (referee/game-over? board)
+      (->> (referee/get-status board opponent)
+           (ui/prompt-gameover game-ui board))
       (recur game-ui opponent current (game/take-turn* game-ui current board)))))
 
 (defn -main

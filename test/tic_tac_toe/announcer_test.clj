@@ -7,6 +7,7 @@
 (def p1-turn "\nPlayer 1's turn.\n")
 (def p2-turn "\nPlayer 2's turn.\n")
 (def move-prompt "Please pick a spot from 1-9: ")
+(def player-win-prompt "Player 1 wins!\n")
 (def board [" " " " " " " " " " " " " " " " " "])
 
 (def test-human (human/create-human-player "X"))
@@ -21,6 +22,12 @@
   (testing "correctly formats and returns move prompt"
     (is (= move-prompt (move-request board)))))
 
-(deftest returns-gameover-prompt
-  (testing "correctly formats and returns game over prompt"
-    (is (= ["Game over.\n"] (gameover [])))))
+(deftest formats-player-win-prompt
+  (testing "correctly adds player name to win prompt"
+    (is (= player-win-prompt (player-win test-human)))))
+
+(deftest returns-correct-gameover-prompt
+  (testing "correctly formats and returns draw game over prompt"
+    (is (= ["Game over. It's a draw.\n"] (gameover {:winner :none} []))))
+  (testing "correctly formats and returns winner game over prompt"
+    (is (= ["Game over. Player 1 wins!\n"] (gameover {:winner test-human} [])))))

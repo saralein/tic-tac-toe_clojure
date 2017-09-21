@@ -9,13 +9,17 @@
   [spot]
   (= spot 'empty))
 
+(defn get-empty-spots
+  [board]
+  (keep-indexed #(if (is-empty? %2) %1) board))
+
 (defn full?
   [board]
   (not-any? is-empty? board))
 
 (defn add-move
-  [move board player]
-  (assoc board move (:token player)))
+  [move board token]
+  (assoc board move token))
 
 (defn get-rows
   [board size]
@@ -44,3 +48,5 @@
     (-> (concat rows (get-columns rows))
         (conj (get-diagonal rows size :up))
         (conj (get-diagonal rows size :down)))))
+
+(def give-patterns (memoize give-patterns))

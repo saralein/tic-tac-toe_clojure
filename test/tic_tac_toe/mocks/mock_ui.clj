@@ -20,7 +20,7 @@
 
   (prompt-move [this board player] "prompt-move called")
 
-  (prompt-gameover [this board] "prompt-gameover called"))
+  (prompt-gameover [this board status] "prompt-gameover called"))
 
 (defn create-mock-ui [game-io]
   (map->MockUI {:game-io game-io}))

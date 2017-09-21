@@ -6,11 +6,11 @@
             [tic-tac-toe.user-interface :as ui]
             [tic-tac-toe.core :refer :all]))
 
-(def board-full ["X" "X" "X" "X" "X" "X" "X" "X" "X"])
+(def board-full (vec (repeat 9 "X")))
 (def divider "\n--- + --- + ---\n")
 (def row " X  |  X  |  X ")
 (def board-string (str "\n" row divider row divider row "\n\n"))
-(def game-over "Game over.\n")
+(def game-over "Game over. X wins!\n")
 (def gameover-prompt (str board-string game-over))
 
 (def test-io (io/mock-value-output "4" ""))
@@ -20,4 +20,4 @@
 
 (deftest handles-game-over
   (testing "ends game if board is full"
-    (is (= gameover-prompt (play test-ui test-human test-computer board-full)))))
+    (is (= gameover-prompt (play test-ui test-computer test-human board-full)))))

@@ -7,7 +7,8 @@
 (def p1-turn "\nPlayer 1's turn.\n")
 (def p2-turn "\nPlayer 2's turn.\n")
 (def move-prompt "Please pick a spot from 1-9: ")
-(def board [" " " " " " " " " " " " " " " " " "])
+(def player-win-prompt "X wins!\n")
+(def board (vec (repeat 9 'empty)))
 
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O"))
@@ -21,6 +22,8 @@
   (testing "correctly formats and returns move prompt"
     (is (= move-prompt (move-request board)))))
 
-(deftest returns-gameover-prompt
-  (testing "correctly formats and returns game over prompt"
-    (is (= ["Game over.\n"] (gameover [])))))
+(deftest returns-correct-gameover-prompt
+  (testing "correctly formats and returns draw game over prompt"
+    (is (= ["Game over. It's a draw.\n"] (gameover 'draw []))))
+  (testing "correctly formats and returns winner game over prompt"
+    (is (= ["Game over. X wins!\n"] (gameover "X" [])))))

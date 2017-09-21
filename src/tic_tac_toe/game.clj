@@ -7,7 +7,7 @@
 (defn request-move
   [game-ui player board]
   (->> (player/pick-move player game-ui board)
-        (referee/validate-move player)))
+       (referee/validate-move player)))
 
 (defn take-turn*
   [game-ui player board]

@@ -5,12 +5,12 @@
         [tic-tac-toe.user-interface :refer :all]))
 
 (def p1-turn "\nPlayer 1's turn.\n")
-(def board [" " " " " " " " " " " " " " " " " "])
+(def board (vec (repeat 9 'empty)))
 (def divider "\n--- + --- + ---\n")
 (def row "    |     |    ")
 (def board-string (str "\n" row divider row divider row "\n\n"))
 (def full-prompt (str p1-turn board-string))
-(def gameover-prompt (str board-string "Game over.\n"))
+(def gameover-prompt (str board-string "Game over. It's a draw.\n"))
 
 (def test-io (io/mock-value-output "4" ""))
 (def test-ui (create-ui test-io))
@@ -36,4 +36,4 @@
 
 (deftest displays-full-gameover-prompt
   (testing "retrieves board and game over prompt and displays"
-    (is (= gameover-prompt (prompt-gameover test-ui board)))))
+    (is (= gameover-prompt (prompt-gameover test-ui board 'draw)))))

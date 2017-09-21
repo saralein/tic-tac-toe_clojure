@@ -6,8 +6,8 @@
             [tic-tac-toe.user-interface :as ui]
             [tic-tac-toe.game :refer :all]))
 
-(def board [" " " " " " " " " " " " " " " " " "])
-(def board-move [" " " " " " " " "X" " " " " " " " "])
+(def board (vec (repeat 9 'empty)))
+(def board-move (assoc board 4 "X"))
 
 (def test-io (io/mock-value-output "5" ""))
 (def test-ui (ui/create-ui test-io))

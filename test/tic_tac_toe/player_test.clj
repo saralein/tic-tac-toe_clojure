@@ -6,8 +6,8 @@
             [tic-tac-toe.mocks.mock-ui :as ui]
             [tic-tac-toe.player :refer :all]))
 
-(def board [" " " " " " " " " " " " " " " " " "])
-(def board-partial ["X" "X" "O" "X" "O" "X" " " "O" " "])
+(def board (vec (repeat 9 'empty)))
+(def board-partial ["X" "X" "O" "X" "O" "X" 'empty "O" 'empty])
 (def test-io (io/mock-value-output "4" ""))
 (def test-ui (ui/create-mock-ui test-io))
 (def test-human (human/create-human-player "X"))

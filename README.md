@@ -1,4 +1,17 @@
-# tic-tac-toe
+# Clojure Tic Tac Toe
+
+## Setup
+
+To play, install [Leiningen](https://leiningen.org/).
+
+`git clone git@github.com:saralein/tic-tac-toe_clojure.git`
+`cd tic-tac-toe_clojure`
+
+Then run `lein run`.
+
+## Test
+
+To test, run `lein test`.
 
 ## License
 

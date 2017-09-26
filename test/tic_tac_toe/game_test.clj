@@ -1,21 +1,23 @@
 (ns tic-tac-toe.game-test
   (:require [clojure.test :refer :all]
+            [tic-tac-toe.computer :as computer]
+            [tic-tac-toe.human :as human]
             [tic-tac-toe.mocks.mock-io :as io]
-            [tic-tac-toe.player :as player]
             [tic-tac-toe.user-interface :as ui]
             [tic-tac-toe.game :refer :all]))
 
 (def board [" " " " " " " " " " " " " " " " " "])
 (def board-move [" " " " " " " " "X" " " " " " " " "])
 
-(def test-io (io/create-mock-io "5"))
+(def test-io (io/mock-value-output "5" ""))
 (def test-ui (ui/create-ui test-io))
-(def test-player (player/create-player))
+(def test-human (human/create-human-player "X"))
+(def test-computer (computer/create-computer-player "O"))
 
 (deftest requests-move-and-get-spot-back
   (testing "asks for a move and returns a decremented integer"
-    (is (= 4 (request-move test-ui test-player)))))
+    (is (= 4 (request-move test-ui test-human board)))))
 
 (deftest takes-turn-on-board
   (testing "gets a move form the user and adds to board"
-    (is (= board-move (take-turn* test-ui test-player board)))))
+    (is (= board-move (take-turn* test-ui test-human board)))))

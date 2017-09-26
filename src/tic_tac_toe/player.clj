@@ -1,12 +1,4 @@
-(ns tic-tac-toe.player
-  (:require [tic-tac-toe.user-interface :as ui]))
+(ns tic-tac-toe.player)
 
 (defprotocol Player
-  (pick-move [this ui]))
-
-(defrecord Human []
-  Player
-  (pick-move [this ui] (ui/get-input ui)))
-
-(defn create-player []
-  (map->Human {}))
+  (pick-move [this game-ui board]))

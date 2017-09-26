@@ -4,10 +4,15 @@
             [tic-tac-toe.referee :as referee]
             [tic-tac-toe.user-interface :as ui]))
 
+(defn share-information
+  [player game-ui board]
+  (->> {:game-ui game-ui :board board}
+       ((:needed player))))
+
 (defn request-move
   [game-ui player board]
   (->> (player/pick-move player game-ui board)
-        (referee/validate-move player)))
+       (referee/validate-move player)))
 
 (defn take-turn*
   [game-ui player board]

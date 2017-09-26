@@ -10,6 +10,19 @@
     [board]
     (format human-move (count board)))
 
+(defn player-win
+  [player]
+  (str (:name player) " wins!\n"))
+
+(defn winning-prompt
+  [status]
+  (-> "Game over. "
+      (cond->
+        (= :none (:winner status))
+          (str "It's a draw.\n")
+        (not= :none (:winner status))
+          (str (player-win (:winner status))))))
+
 (defn gameover
-  [message]
-  (conj message "Game over.\n"))
+  [status message]
+  (conj message (winning-prompt status)))

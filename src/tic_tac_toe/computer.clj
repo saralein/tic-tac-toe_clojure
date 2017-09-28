@@ -4,7 +4,7 @@
 
 (defn- first-available
   [board]
-  (first (keep-indexed #(if (= " " %2) %1) board)))
+  (first (keep-indexed #(if (= 'empty %2) %1) board)))
 
 (defrecord Computer []
   player/Player

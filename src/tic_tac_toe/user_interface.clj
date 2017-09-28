@@ -11,7 +11,7 @@
   (clear-src [this])
   (pause [this])
   (prompt-move [this board player])
-  (prompt-gameover [this board]))
+  (prompt-gameover [this board winner]))
 
 (defrecord ConsoleUI [game-io]
   UI
@@ -40,11 +40,11 @@
       (.update-display this)))
 
   (prompt-gameover
-    [this board]
+    [this board winner]
     (.clear-src this)
     (->> []
       (presenter/board-display board)
-      (announcer/gameover)
+      (announcer/gameover winner)
       (.update-display this))))
 
 (defn create-ui [game-io]

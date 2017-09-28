@@ -16,9 +16,15 @@
       (= (mod spot size) 0) (add-divider size)
       :else " | ")))
 
+(defn determine-token
+  [token]
+  (if (= token 'empty)
+    " "
+    token))
+
 (defn create-string
   [board]
-  (->> (map #(str " " (board %) " " (append-spot % board)) (range 9))
+  (->> (map #(str " " (determine-token (board %)) " " (append-spot % board)) (range 9))
        (apply str)
        (str "\n")))
 

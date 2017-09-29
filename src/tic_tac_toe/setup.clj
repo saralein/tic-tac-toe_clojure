@@ -5,4 +5,4 @@
 (defn setup-players
   []
   (vector (human/create-human-player "X")
-          (computer/create-computer-player "O")))
+          (computer/create-computer-player "O" "X")))

@@ -11,7 +11,7 @@
 (def test-io (io/mock-value-output "4" ""))
 (def test-ui (ui/create-mock-ui test-io))
 (def test-human (human/create-human-player "X"))
-(def test-computer (computer/create-computer-player "O"))
+(def test-computer (computer/create-computer-player "O" "X"))
 
 (deftest gets-move-from-player
   (testing "asks for move from human player and returns choice"

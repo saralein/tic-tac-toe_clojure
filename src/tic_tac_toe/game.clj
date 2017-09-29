@@ -13,4 +13,4 @@
   [game-ui player board]
   (ui/prompt-move game-ui board player)
   (-> (request-move game-ui player board)
-      (board/add-move board player)))
+      (board/add-move board (:token player))))

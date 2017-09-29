@@ -17,12 +17,6 @@
                   [0 1 2] [3 4 5] [6 7 8]
                   [0 3 6] [1 4 7] [2 5 8]])
 
-(def player (human/create-human-player "X"))
-
-(def player (human/create-human-player "X"))
-
-(def player (human/create-human-player "X"))
-
 (deftest making-a-new-board
   (testing "creates an empty board based on size"
     (is (= board (make 3)))))
@@ -33,6 +27,14 @@
   (testing "returns false if spot is not empty"
     (is (= false (is-empty? "X")))))
 
+(deftest gets-empty-spot-indices
+  (testing "returns array of indices for empty spots on full board"
+    (is (= board-nums (get-empty-spots board))))
+  (testing "returns array of indices for partial board"
+    (is (= [0 1 2 3 5 6 7 8] (get-empty-spots board-move))))
+  (testing "returns empty array for full board"
+    (is (= [] (get-empty-spots board-full)))))
+
 (deftest checks-if-board-is-full
   (testing "returns false when board is not full"
     (is (= false (full? board)))))
@@ -41,7 +43,7 @@
 
 (deftest adds-move-to-board
   (testing "it correctly adds move to board"
-    (is (= board-move (add-move 4 board player)))))
+    (is (= board-move (add-move 4 board "X")))))
 
 (deftest divides-board-into-rows
   (testing "divides the board into rows of correct size"

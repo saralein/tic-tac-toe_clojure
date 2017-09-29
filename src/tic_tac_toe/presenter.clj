@@ -24,7 +24,7 @@
 
 (defn create-string
   [board]
-  (->> (map #(str " " (determine-token (board %)) " " (append-spot % board)) (range 9))
+  (->> (map #(str " " (determine-token (board %)) " " (append-spot % board)) (range (count board)))
        (apply str)
        (str "\n")))
 

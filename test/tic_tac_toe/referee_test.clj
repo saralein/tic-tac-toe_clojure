@@ -14,7 +14,7 @@
 (def pattern-matches [["O" "O" "O"] ['empty 'empty 'empty]])
 
 (def test-human (human/create-human-player "X"))
-(def test-computer (computer/create-computer-player "O"))
+(def test-computer (computer/create-computer-player "O" "X"))
 
 (deftest converts-move-to-spot
   (testing "returns a decremented integer if given string"
@@ -38,7 +38,7 @@
   (testing "returns correct bool for three token pattern"
     (is (= true (matching-pattern? 'empty ['empty 'empty 'empty])))
     (is (= false (matching-pattern? "X" ["O" "O" "O"])))
-    (is (= false (matching-pattern? "X" ["X" " " "O"])))
+    (is (= false (matching-pattern? "X" ["X" 'empty "O"])))
     (is (= true (matching-pattern? "X" ["X" "X" "X"])))))
 
 (deftest gets-all-matching-patterns

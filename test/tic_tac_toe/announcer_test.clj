@@ -11,7 +11,7 @@
 (def board (vec (repeat 9 'empty)))
 
 (def test-human (human/create-human-player "X"))
-(def test-computer (computer/create-computer-player "O"))
+(def test-computer (computer/create-computer-player "O" "X"))
 
 (deftest announce-player-turns
   (testing "announces current player for turns"

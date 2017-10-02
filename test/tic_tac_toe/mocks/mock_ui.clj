@@ -20,6 +20,8 @@
 
   (prompt-move [this board player] "prompt-move called")
 
+  (optional-prompt [this prompt message] "added optional prompt")
+
   (prompt-gameover [this board winner] "prompt-gameover called"))
 
 (defn create-mock-ui [game-io]

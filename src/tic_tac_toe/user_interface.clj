@@ -10,7 +10,8 @@
   (get-input [this])
   (clear-src [this])
   (pause [this])
-  (prompt-move [this board player])
+  (prompt-move [this board player][this board player optional])
+  (optional-prompt [this prompt message])
   (prompt-gameover [this board winner]))
 
 (defrecord ConsoleUI [game-io]
@@ -33,11 +34,20 @@
 
   (prompt-move
     [this board player]
+    (prompt-move this board player ""))
+
+  (prompt-move
+    [this board player prompt]
     (.clear-src this)
     (->> []
       (announcer/announce-turn player)
       (presenter/board-display board)
+      (.optional-prompt this prompt)
       (.update-display this)))
+
+  (optional-prompt
+    [this prompt message]
+    (conj message prompt))
 
   (prompt-gameover
     [this board winner]

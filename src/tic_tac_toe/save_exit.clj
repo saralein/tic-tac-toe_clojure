@@ -14,7 +14,7 @@
   [{:keys [ui]}]
   (ui/exit ui))
 
-(defn- save-and-exit
+(defn save-and-exit
   [game]
   (save game)
   (exit game))

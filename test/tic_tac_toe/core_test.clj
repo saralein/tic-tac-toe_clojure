@@ -16,7 +16,7 @@
 (def gameover-prompt (str board-string game-over))
 
 (def test-io (io/mock-value-output "4" ""))
-(def test-ui (ui/create-ui test-io))
+(def test-ui (ui/create-ui test-io #("exit")))
 (def test-serializer (serializer/create-mock-serializer))
 (def test-writer (writer/create-writer test-serializer))
 (def test-human (human/create-human-player "X"))

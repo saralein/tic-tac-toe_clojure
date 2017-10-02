@@ -13,7 +13,7 @@
 (def board-won ["O" 'empty "X" "X" "O" 'empty "X" 'empty "O"])
 
 (def test-io (io/mock-value-output "4" ""))
-(def test-ui (ui/create-mock-ui test-io))
+(def test-ui (ui/create-mock-ui test-io #("exit")))
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O" "X"))
 (def test-serializer (serializer/create-mock-serializer))

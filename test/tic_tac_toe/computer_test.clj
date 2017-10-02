@@ -19,7 +19,7 @@
 (def possible-block ["X" "O" 'empty "O" "X" 'empty 'empty 'empty 'empty])
 
 (def test-io (io/mock-value-output "4" ""))
-(def test-ui (ui/create-mock-ui test-io))
+(def test-ui (ui/create-mock-ui test-io #("exit")))
 (def test-human (human/create-human-player "X"))
 (def test-computer (create-computer-player "O" "X"))
 

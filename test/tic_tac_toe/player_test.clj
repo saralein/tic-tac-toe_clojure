@@ -9,7 +9,7 @@
 (def board (vec (repeat 9 'empty)))
 (def board-partial ["X" "X" "O" "X" "O" "X" 'empty "O" 'empty])
 (def test-io (io/mock-value-output "4" ""))
-(def test-ui (ui/create-mock-ui test-io))
+(def test-ui (ui/create-mock-ui test-io #("exit")))
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O" "X"))
 

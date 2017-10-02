@@ -16,6 +16,6 @@
 
 (defn -main
   []
-  (let [utils (setup/setup-utils)]
-    (-> (setup/setup-game utils "saves" "game")
-        (play))))
+  (-> (setup/setup-utils)
+      (setup/setup-game "saves" "game")
+      (play)))

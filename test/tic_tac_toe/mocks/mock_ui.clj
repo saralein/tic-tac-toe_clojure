@@ -2,7 +2,7 @@
   (:require [tic-tac-toe.io :as io]
             [tic-tac-toe.user-interface :as ui]))
 
-(defrecord MockUI [game-io]
+(defrecord MockUI [game-io exit-method]
   ui/UI
   (update-display
     [this message]
@@ -28,5 +28,5 @@
 
   (prompt-gameover [this board winner] "prompt-gameover called"))
 
-(defn create-mock-ui [game-io]
-  (map->MockUI {:game-io game-io}))
+(defn create-mock-ui [game-io exit-method]
+  (map->MockUI {:game-io game-io :exit-method exit-method}))

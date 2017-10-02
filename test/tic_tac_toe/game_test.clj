@@ -12,9 +12,9 @@
 (def board-move (assoc board 4 "X"))
 
 (def test-io-move (io/mock-value-output "5" ""))
-(def test-ui-move (ui/create-ui test-io-move))
+(def test-ui-move (ui/create-ui test-io-move #("exit")))
 (def test-io-option (io/mock-value-output "?" ""))
-(def test-ui-option (ui/create-ui test-io-option))
+(def test-ui-option (ui/create-ui test-io-option #("exit")))
 (def test-serializer (serializer/create-mock-serializer))
 (def test-writer (writer/create-writer test-serializer))
 (def test-human (human/create-human-player "X"))

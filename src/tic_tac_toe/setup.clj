@@ -52,7 +52,7 @@
         game-io (io/create-console-io)]
     (hash-map :reader (reader/create-reader game-serializer)
               :writer (writer/create-writer game-serializer)
-              :ui (ui/create-ui game-io)
+              :ui (ui/create-ui game-io #(System/exit 0))
               :messages messages
               :options (game-options (:help messages)))))
 

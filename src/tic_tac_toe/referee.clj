@@ -7,13 +7,12 @@
   (:use [clojure.core.match :refer [match]]))
 
 (defn validate-move
-  [request-move game move]
-  (let [result (check-spot (:board game) move)]
+  [retry-move {:keys [board current ui] :as game} move]
+  (let [result (check-spot board move)]
     (if (:valid result)
       (:data result)
-      (->> (:data result)
-           (partial ui/prompt-move (:ui game) (:board game) (:current game))
-           (request-move game)))))
+      (-> (:data result)
+           (retry-move game)))))
 
 (defn draw?
   [board]

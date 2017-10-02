@@ -5,6 +5,8 @@
             [tic-tac-toe.user-interface :as ui]
             [tic-tac-toe.read-write.writer :as writer]))
 
+(declare request-move)
+
 (defn- game-option?
   [game move]
   (contains? (:options game) (keyword move)))
@@ -19,18 +21,22 @@
   [game]
   (assoc game :current (:opponent game) :opponent (:current game)))
 
+(defn retry-move
+  [prompt {:keys [board current ui] :as game}]
+  (->> (partial ui/prompt-move ui board current prompt)
+       (request-move game)))
+
 (defn request-move
-  [game prompt-func]
+  [{:keys [current ui board] :as game} prompt-func]
   (prompt-func)
-  (let [move (player/pick-move (:current game) (:ui game) (:board game))]
+  (let [move (player/pick-move current ui board)]
     (if (game-option? game move)
       (perform-option game move)
-      (referee/validate-move request-move game move))))
+      (referee/validate-move retry-move game move))))
 
 (defn take-turn*
-  [game]
-  (let [prompt-func (partial ui/prompt-move (:ui game) (:board game) (:current game))
-        token (get-in game [:current :token])]
+  [{:keys [current board ui] :as game}]
+  (let [prompt-func (partial ui/prompt-move ui board current)]
     (-> (request-move game prompt-func)
-        (#(update game :board board/add-move % token))
+        (#(update game :board board/add-move % (:token current)))
         (switch-players))))

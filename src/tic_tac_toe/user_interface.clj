@@ -11,9 +11,10 @@
   (clear-src [this])
   (pause [this])
   (prompt-move [this board player][this board player optional])
+  (prompt-selection [this message])
   (optional-prompt [this prompt message])
   (prompt-gameover [this board winner])
-  (close [this]))
+  (exit [this]))
 
 (defrecord ConsoleUI [game-io]
   UI
@@ -46,6 +47,12 @@
       (.optional-prompt this prompt)
       (.update-display this)))
 
+  (prompt-selection
+    [this prompt]
+    (.clear-src this)
+    (.update-display this prompt)
+    (.get-input this))
+
   (optional-prompt
     [this prompt message]
     (conj message prompt))
@@ -58,7 +65,7 @@
       (announcer/gameover winner)
       (.update-display this)))
 
-  (close
+  (exit
     [this]
     (System/exit 0)))
 

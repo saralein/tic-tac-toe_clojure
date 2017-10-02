@@ -43,7 +43,7 @@
 
 (deftest adds-move-to-board
   (testing "it correctly adds move to board"
-    (is (= board-move (add-move 4 board "X")))))
+    (is (= board-move (add-move board 4 "X")))))
 
 (deftest divides-board-into-rows
   (testing "divides the board into rows of correct size"

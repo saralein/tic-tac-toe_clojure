@@ -1,0 +1,1 @@
+{"board":["X","empty","empty","empty","O","empty","empty","empty","empty"],"opponent":{"name":"Player 2","type":"computer","token":"O","opponent":"X"},"current":{"name":"Player 1","type":"human","token":"X"}}

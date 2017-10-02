@@ -6,7 +6,7 @@
 
 (def p1-turn "\nPlayer 1's turn.\n")
 (def p2-turn "\nPlayer 2's turn.\n")
-(def move-prompt "Please pick a spot from 1-9: ")
+(def move-prompt "Please pick a spot from 1-9 (enter \"s\" to save and exit): ")
 (def player-win-prompt "X wins!\n")
 (def board (vec (repeat 9 'empty)))
 

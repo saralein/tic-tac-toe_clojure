@@ -12,7 +12,8 @@
   (pause [this])
   (prompt-move [this board player][this board player optional])
   (optional-prompt [this prompt message])
-  (prompt-gameover [this board winner]))
+  (prompt-gameover [this board winner])
+  (close [this]))
 
 (defrecord ConsoleUI [game-io]
   UI
@@ -55,7 +56,11 @@
     (->> []
       (presenter/board-display board)
       (announcer/gameover winner)
-      (.update-display this))))
+      (.update-display this)))
+
+  (close
+    [this]
+    (System/exit 0)))
 
 (defn create-ui [game-io]
   (map->ConsoleUI {:game-io game-io}))

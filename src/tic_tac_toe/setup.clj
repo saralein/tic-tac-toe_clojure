@@ -5,6 +5,7 @@
         [tic-tac-toe.save-exit :only [save?]])
   (:require [tic-tac-toe.board :as board]
             [tic-tac-toe.computer :as computer]
+            [tic-tac-toe.game :as game]
             [tic-tac-toe.human :as human]
             [tic-tac-toe.io :as io]
             [tic-tac-toe.read-write.serializer :as serializer]
@@ -14,7 +15,9 @@
 
 (declare load-options)
 
-(def game-options (hash-map :s save?))
+(defn- game-options
+  [prompt]
+  (hash-map :? (partial game/retry-move prompt) :s save?))
 
 (defn- setup-board [] (board/make 3))
 
@@ -51,7 +54,7 @@
               :writer (writer/create-writer game-serializer)
               :ui (ui/create-ui game-io)
               :messages messages
-              :options game-options)))
+              :options (game-options (:help messages)))))
 
 (defn setup-game
   [{:keys [ui]

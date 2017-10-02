@@ -13,7 +13,7 @@
 
 (def test-io-move (io/mock-value-output "5" ""))
 (def test-ui-move (ui/create-ui test-io-move))
-(def test-io-option (io/mock-value-output "s" ""))
+(def test-io-option (io/mock-value-output "?" ""))
 (def test-ui-option (ui/create-ui test-io-option))
 (def test-serializer (serializer/create-mock-serializer))
 (def test-writer (writer/create-writer test-serializer))
@@ -21,7 +21,7 @@
 (def test-computer (computer/create-computer-player "O" "X"))
 (def prompt-func-move (partial ui/prompt-move test-ui-move board test-human))
 (def prompt-func-option (partial ui/prompt-move test-ui-option board test-human))
-(def options (hash-map :s (fn [game] "called")))
+(def options (hash-map :? (fn [game] "called")))
 
 (def game {:options options :ui test-ui-move :writer test-writer
            :current test-human :opponent test-computer :board board})

@@ -1,55 +1,22 @@
 (ns tic-tac-toe.referee
-  (:require [tic-tac-toe.board :as board])
+  (:require [tic-tac-toe.board :as board]
+            [tic-tac-toe.user-interface :as ui]
+            [tic-tac-toe.validation.board-validator :refer :all]
+            [tic-tac-toe.validation.move-validator :refer :all])
   (:use [clojure.core.match :refer [match]]))
 
-(defn convert-to-spot
-  [move]
-  (if (string? move)
-    (- (Integer/parseInt move) 1)
-    move))
-
 (defn validate-move
-  [player move]
-  (convert-to-spot move))
+  [request-move game-ui player board move]
+  (let [result (check-spot board move)]
+    (if (:valid result)
+      (:data result)
+      (->> (:data result)
+           (partial ui/prompt-move game-ui board player)
+           (request-move game-ui player board)))))
 
 (defn draw?
   [board]
   (board/full? board))
-
-(defn matching-pattern?
-  [token pattern]
-  (loop [token token
-         pattern pattern]
-    (match pattern
-      [token] true
-      [token & r] (recur token (vec (rest pattern)))
-      [_ & r] false)))
-
-(defn get-matching-patterns
-  [board]
-  (->> (board/give-patterns board)
-       (filter #(matching-pattern? (first %) %))))
-
-(defn remove-empty-patterns
-  [patterns]
-  (->> (filter #(not (board/is-empty? (first %))) patterns)
-       (flatten)))
-
-(defn evaluate-board
-  [board func]
-  (->> (get-matching-patterns board)
-       (remove-empty-patterns)
-       (func)))
-
-(defn single-token?
-  [pattern]
-  (not (empty? pattern)))
-
-(defn type-win
-  [pattern]
-  (if (empty? pattern)
-    'draw
-    (first pattern)))
 
 (defn winner?
   [board]

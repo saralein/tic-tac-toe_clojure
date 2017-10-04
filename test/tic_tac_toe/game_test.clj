@@ -13,10 +13,11 @@
 (def test-ui (ui/create-ui test-io))
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O" "X"))
+(def prompt-func (partial ui/prompt-move test-ui board test-human))
 
 (deftest requests-move-and-get-spot-back
   (testing "asks for a move and returns a decremented integer"
-    (is (= 4 (request-move test-ui test-human board)))))
+    (is (= 4 (request-move test-ui test-human board prompt-func)))))
 
 (deftest takes-turn-on-board
   (testing "gets a move form the user and adds to board"

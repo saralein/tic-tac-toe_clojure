@@ -15,7 +15,7 @@
 
 (defn project-boards
   [board empty-spots current]
-  (map #(board/add-move % board current) empty-spots))
+  (map #(board/add-move board % current) empty-spots))
 
 (defn generate-scores
   [board current opponent depth]

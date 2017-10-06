@@ -18,7 +18,7 @@
   (not-any? is-empty? board))
 
 (defn add-move
-  [move board token]
+  [board move token]
   (assoc board move token))
 
 (defn get-rows

@@ -4,6 +4,8 @@
         [tic-tac-toe.human :as human]
         [tic-tac-toe.mocks.mock-io :as io]
         [tic-tac-toe.mocks.mock-ui :as ui]
+        [tic-tac-toe.mocks.mock-serializer :as serializer]
+        [tic-tac-toe.read-write.writer :as writer]
         [tic-tac-toe.referee :refer :all]))
 
 (def board (vec (repeat 9 'empty)))
@@ -14,18 +16,21 @@
 (def test-ui (ui/create-mock-ui test-io))
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O" "X"))
+(def test-serializer (serializer/create-mock-serializer))
+(def test-writer (create-writer test-serializer))
+(def game {:board board :current test-human :opponent test-computer})
 
 (defn request-test-move
-  [game-ui player board prompt-func]
+  [game prompt-func]
   "called")
 
 (deftest verifies-player-move
   (testing "translates human move to a spot"
-    (is (= 1 (validate-move request-test-move test-ui test-human board "2"))))
+    (is (= 1 (validate-move request-test-move game "2"))))
   (testing "translates computer move to a spot"
-    (is (= 2 (validate-move request-test-move test-ui test-computer board 2))))
+    (is (= 2 (validate-move request-test-move game 2))))
   (testing "given function will be called if move is not valid"
-    (is (= "called" (validate-move request-test-move test-ui test-human board "100w")))))
+    (is (= "called" (validate-move request-test-move game "100w")))))
 
 (deftest gets-game-winner
   (testing "returns draw if no winning pattern"

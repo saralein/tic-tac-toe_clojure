@@ -1,6 +1,6 @@
 (ns tic-tac-toe.announcer)
 
-(def human-move "Please pick a spot from 1-%d: ")
+(def human-move "Please pick a spot from 1-%d (enter \"s\" to save and exit): ")
 (def draw "Game over. It's a draw.\n")
 (def win "Game over. %s wins!\n")
 

@@ -2,17 +2,18 @@
   (:require [tic-tac-toe.board :as board]
             [tic-tac-toe.user-interface :as ui]
             [tic-tac-toe.validation.board-validator :refer :all]
-            [tic-tac-toe.validation.move-validator :refer :all])
+            [tic-tac-toe.validation.move-validator :refer :all]
+            [tic-tac-toe.read-write.writer :as writer])
   (:use [clojure.core.match :refer [match]]))
 
 (defn validate-move
-  [request-move game-ui player board move]
-  (let [result (check-spot board move)]
+  [request-move game move]
+  (let [result (check-spot (:board game) move)]
     (if (:valid result)
       (:data result)
       (->> (:data result)
-           (partial ui/prompt-move game-ui board player)
-           (request-move game-ui player board)))))
+           (partial ui/prompt-move (:ui game) (:board game) (:current game))
+           (request-move game)))))
 
 (defn draw?
   [board]

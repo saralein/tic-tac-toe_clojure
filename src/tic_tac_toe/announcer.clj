@@ -6,7 +6,7 @@
 
 (defn announce-turn
   [player message]
-  (conj message (str "\n"(:name player) "'s turn.\n")))
+  (conj message (str (:name player) "'s turn.\n")))
 
 (defn move-request
   [board]

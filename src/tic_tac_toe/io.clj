@@ -10,7 +10,7 @@
   IO
   (user-input [this] (.flushes this) (read-line))
   (display [this message] (print message) (.flushes this))
-  (clears [this] (print (format "\033[2J\033[;H")))
+  (clears [this] (print (format "\033c\033[3J")))
   (flushes [this] (flush)))
 
 (defn create-console-io []

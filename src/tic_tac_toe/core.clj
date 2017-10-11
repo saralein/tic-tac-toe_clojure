@@ -8,13 +8,14 @@
 
 (defn play
   [game]
-  (loop [game game]
-    (if (referee/game-over? (:board game))
-      (->> (referee/get-winner (:board game))
-           (ui/prompt-gameover (:ui game) (:board game)))
+  (loop [{:keys [board ui] :as game} game]
+    (if (referee/game-over? board)
+      (->> (referee/get-winner board)
+           (ui/prompt-gameover ui board))
       (recur (game/take-turn* game)))))
 
 (defn -main
   []
-  (let [game (setup/setup-game "saves" "game")]
-    (play game)))
+  (let [utils (setup/setup-utils)]
+    (-> (setup/setup-game utils "saves" "game")
+        (play))))

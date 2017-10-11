@@ -20,6 +20,10 @@
 
   (prompt-move [this board player] "prompt-move called")
 
+  (prompt-selection
+    [this message]
+    (.get-input this))
+
   (optional-prompt [this prompt message] "added optional prompt")
 
   (prompt-gameover [this board winner] "prompt-gameover called"))

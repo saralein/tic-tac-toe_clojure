@@ -8,7 +8,6 @@
         [tic-tac-toe.mocks.mock-ui :as mock-ui]
         [tic-tac-toe.player :as player]
         [tic-tac-toe.read-write.reader :as reader]
-        [tic-tac-toe.read-write.serializer :as serializer]
         [tic-tac-toe.read-write.writer :as writer]
         [tic-tac-toe.user-interface :as ui]
         [tic-tac-toe.setup :refer :all]))
@@ -22,9 +21,8 @@
 (def new-game-ui (mock-ui/create-mock-ui new-game-io #("exit")))
 (def saved-game-io (mock-io/mock-value-output "2" ""))
 (def saved-game-ui (mock-ui/create-mock-ui saved-game-io #("exit")))
-(def test-serializer (serializer/create-serializer))
-(def test-reader (create-reader test-serializer))
-(def test-writer (create-writer test-serializer))
+(def test-reader (create-reader))
+(def test-writer (create-writer))
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O" "X"))
 

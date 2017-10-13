@@ -1,7 +1,6 @@
 (ns tic-tac-toe.menu-selector-test
   (:use [clojure.test :refer :all]
         [tic-tac-toe.mocks.mock-io :as io]
-        [tic-tac-toe.mocks.mock-serializer :as mock-serializer]
         [tic-tac-toe.mocks.mock-ui :as ui]
         [tic-tac-toe.player :as player]
         [tic-tac-toe.read-write.reader :as reader]
@@ -10,8 +9,7 @@
 
 (def test-io (io/mock-value-output "y" ""))
 (def test-ui (ui/create-mock-ui test-io #("exit")))
-(def test-serializer (mock-serializer/create-mock-serializer))
-(def test-reader (create-reader test-serializer))
+(def test-reader (create-reader))
 (def utils (hash-map :ui test-ui :reader test-reader))
 
 (defn valid-func [utils] "option pulled")

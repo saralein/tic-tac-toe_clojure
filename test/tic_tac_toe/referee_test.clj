@@ -4,7 +4,6 @@
         [tic-tac-toe.human :as human]
         [tic-tac-toe.mocks.mock-io :as io]
         [tic-tac-toe.mocks.mock-ui :as ui]
-        [tic-tac-toe.mocks.mock-serializer :as serializer]
         [tic-tac-toe.read-write.writer :as writer]
         [tic-tac-toe.referee :refer :all]))
 
@@ -16,8 +15,7 @@
 (def test-ui (ui/create-mock-ui test-io #("exit")))
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O" "X"))
-(def test-serializer (serializer/create-mock-serializer))
-(def test-writer (create-writer test-serializer))
+(def test-writer (create-writer))
 (def game {:board board :current test-human :opponent test-computer})
 
 (defn request-test-move

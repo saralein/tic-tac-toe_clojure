@@ -2,7 +2,6 @@
   (:use [clojure.test :refer :all]
         [tic-tac-toe.computer :as computer]
         [tic-tac-toe.human :as human]
-        [tic-tac-toe.mocks.mock-serializer :as serializer]
         [tic-tac-toe.read-write.writer :as writer]
         [tic-tac-toe.validation.move-validator :refer :all]))
 
@@ -12,8 +11,7 @@
 
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O" "X"))
-(def test-serializer (serializer/create-mock-serializer))
-(def test-writer (create-writer test-serializer))
+(def test-writer (create-writer))
 (def game {:board board :current test-human :opponent test-computer})
 (def game-move {:board board-move :current test-human :opponent test-computer})
 

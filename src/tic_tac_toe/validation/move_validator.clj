@@ -11,11 +11,15 @@
 
 (defn- is-int?
   [move]
-  (not= nil (re-matches #"\d+" move)))
+  (->> (re-matches #"\d+" move)
+       (not= nil)))
 
 (defn- in-range?
   [board move]
-  (not= nil (some #(= move %) (range (count board)))))
+  (->> (count board)
+       (range)
+       (some #(= move %))
+       (not= nil)))
 
 (defn- available?
   [board move]
@@ -24,8 +28,10 @@
 (defn- get-error
   [board move]
   (cond
-    (not (in-range? board move)) (format out-of-range (count board))
-    (not (available? board move)) spot-taken))
+    (not (in-range? board move))
+      (format out-of-range (count board))
+    (not (available? board move))
+      spot-taken))
 
 (defn- valid-spot?
   [board move]

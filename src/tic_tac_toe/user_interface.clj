@@ -25,7 +25,8 @@
 
   (update-display
     [this message]
-    (io/display game-io (apply str message)))
+    (->> (apply str message)
+         (io/display game-io)))
 
   (quit?
     [this input]

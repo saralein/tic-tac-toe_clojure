@@ -1,21 +1,24 @@
 (ns tic-tac-toe.read-write.reader
-  (:use [clojure.java.io :as fs])
-  (:require [tic-tac-toe.read-write.serializer :as serializer]))
+  (:use [clojure.java.io :as fs]
+        [tic-tac-toe.read-write.pathname :as path]))
 
 (defprotocol Reader
-  (load-game [this directory filename create-human create-comp])
+  (load-game [this directory filename])
   (save-exists? [this directory filename]))
 
-(defrecord FSReader [serializer]
+(defrecord FSReader []
   Reader
   (load-game
-    [this directory filename create-human create-comp]
-    (->> (slurp (str directory "/" filename ".json"))
-         (#(serializer/deserialize serializer % create-human create-comp))))
+    [this directory filename]
+    (-> (path/generate directory filename ".edn")
+        (slurp)
+        (read-string)))
 
   (save-exists?
     [this directory filename]
-    (.exists (fs/file (str directory "/" filename ".json")))))
+    (-> (path/generate directory filename ".edn")
+        (fs/file)
+        (.exists))))
 
-(defn create-reader [serializer]
-  (map->FSReader {:serializer serializer}))
+(defn create-reader []
+  (map->FSReader {}))

@@ -1,10 +1,10 @@
-(ns tic-tac-toe.computer-test
+(ns tic-tac-toe.players.computer-test
   (:require [clojure.test :refer :all]
-            [tic-tac-toe.human :as human]
+            [tic-tac-toe.players.human :as human]
             [tic-tac-toe.mocks.mock-io :as io]
-            [tic-tac-toe.player :as player]
+            [tic-tac-toe.players.player :as player]
             [tic-tac-toe.mocks.mock-ui :as ui]
-            [tic-tac-toe.computer :refer :all]))
+            [tic-tac-toe.players.computer :refer :all]))
 
 (def board (vec (repeat 9 'empty)))
 (def corner-taken (assoc board 0 "X"))

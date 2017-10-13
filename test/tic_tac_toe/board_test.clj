@@ -1,6 +1,6 @@
 (ns tic-tac-toe.board-test
   (:require [clojure.test :refer :all]
-            [tic-tac-toe.human :as human]
+            [tic-tac-toe.players.human :as human]
             [tic-tac-toe.board :refer :all]))
 
 (def board ['empty 'empty 'empty 'empty 'empty 'empty 'empty 'empty 'empty])

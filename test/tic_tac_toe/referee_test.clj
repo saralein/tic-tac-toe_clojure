@@ -1,9 +1,10 @@
 (ns tic-tac-toe.referee-test
   (:use [clojure.test :refer :all]
-        [tic-tac-toe.computer :as computer]
-        [tic-tac-toe.human :as human]
+        [tic-tac-toe.players.computer :as computer]
+        [tic-tac-toe.players.human :as human]
         [tic-tac-toe.mocks.mock-io :as io]
         [tic-tac-toe.mocks.mock-ui :as ui]
+        [tic-tac-toe.mocks.mock-timestamper :as timestamper]
         [tic-tac-toe.read-write.writer :as writer]
         [tic-tac-toe.referee :refer :all]))
 
@@ -15,7 +16,8 @@
 (def test-ui (ui/create-mock-ui test-io #("exit")))
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O" "X"))
-(def test-writer (create-writer))
+(def test-timestamper (timestamper/create-mock-timestamper))
+(def test-writer (create-writer test-timestamper))
 (def game {:board board :current test-human :opponent test-computer})
 
 (defn request-test-move

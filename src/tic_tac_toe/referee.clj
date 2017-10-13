@@ -1,6 +1,6 @@
 (ns tic-tac-toe.referee
   (:require [tic-tac-toe.board :as board]
-            [tic-tac-toe.user-interface :as ui]
+            [tic-tac-toe.ui.user-interface :as ui]
             [tic-tac-toe.validation.board-validator :refer :all]
             [tic-tac-toe.validation.move-validator :refer :all]
             [tic-tac-toe.read-write.writer :as writer])

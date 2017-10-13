@@ -1,6 +1,6 @@
 (ns tic-tac-toe.mocks.mock-ui
-  (:require [tic-tac-toe.io :as io]
-            [tic-tac-toe.user-interface :as ui]))
+  (:require [tic-tac-toe.ui.io :as io]
+            [tic-tac-toe.ui.user-interface :as ui]))
 
 (defrecord MockUI [game-io exit-method]
   ui/UI

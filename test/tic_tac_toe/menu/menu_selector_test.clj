@@ -1,15 +1,17 @@
-(ns tic-tac-toe.menu-selector-test
+(ns tic-tac-toe.menu.menu-selector-test
   (:use [clojure.test :refer :all]
         [tic-tac-toe.mocks.mock-io :as io]
         [tic-tac-toe.mocks.mock-ui :as ui]
-        [tic-tac-toe.player :as player]
+        [tic-tac-toe.players.player :as player]
         [tic-tac-toe.read-write.reader :as reader]
+        [tic-tac-toe.read-write.timestamper :as timestamper]
         [tic-tac-toe.read-write.writer :as writer]
-        [tic-tac-toe.menu-selector :refer :all]))
+        [tic-tac-toe.menu.menu-selector :refer :all]))
 
 (def test-io (io/mock-value-output "y" ""))
 (def test-ui (ui/create-mock-ui test-io #("exit")))
-(def test-reader (create-reader))
+(def test-timestamper (timestamper/create-timestamper))
+(def test-reader (create-reader test-timestamper))
 (def utils (hash-map :ui test-ui :reader test-reader))
 
 (defn valid-func [utils] "option pulled")
@@ -28,4 +30,4 @@
 
 (deftest calls-functions-based-on-input
   (testing "calls correct function based on valid input"
-    (is (= "option pulled" (get-selection test-options "message" utils)))))
+    (is (= "option pulled" (get-menu-selection test-options "message" utils)))))

@@ -1,9 +1,10 @@
 (ns tic-tac-toe.core-test
   (:require [clojure.test :refer :all]
-            [tic-tac-toe.computer :as computer]
-            [tic-tac-toe.human :as human]
+            [tic-tac-toe.players.computer :as computer]
+            [tic-tac-toe.players.human :as human]
             [tic-tac-toe.mocks.mock-io :as io]
-            [tic-tac-toe.user-interface :as ui]
+            [tic-tac-toe.read-write.timestamper :as timestamper]
+            [tic-tac-toe.ui.user-interface :as ui]
             [tic-tac-toe.read-write.writer :as writer]
             [tic-tac-toe.core :refer :all]))
 
@@ -16,7 +17,8 @@
 
 (def test-io (io/mock-value-output "4" ""))
 (def test-ui (ui/create-ui test-io #("exit")))
-(def test-writer (writer/create-writer))
+(def test-timestamper (timestamper/create-timestamper))
+(def test-writer (writer/create-writer test-timestamper))
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O" "X"))
 (def game {:ui test-ui :writer test-writer :board board-full

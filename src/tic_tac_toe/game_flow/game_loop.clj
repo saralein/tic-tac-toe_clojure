@@ -1,8 +1,8 @@
-(ns tic-tac-toe.game
+(ns tic-tac-toe.game-flow.game-loop
   (:require [tic-tac-toe.board :as board]
-            [tic-tac-toe.player :as player]
+            [tic-tac-toe.players.player :as player]
             [tic-tac-toe.referee :as referee]
-            [tic-tac-toe.user-interface :as ui]
+            [tic-tac-toe.ui.user-interface :as ui]
             [tic-tac-toe.read-write.writer :as writer]))
 
 (declare request-move)

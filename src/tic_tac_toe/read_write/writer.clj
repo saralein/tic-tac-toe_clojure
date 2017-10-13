@@ -1,24 +1,34 @@
 (ns tic-tac-toe.read-write.writer
   (:use [clojure.java.io :as fs]
-        [tic-tac-toe.read-write.pathname :as path]))
+        [tic-tac-toe.read-write.pathname :as path]
+        [tic-tac-toe.read-write.timestamper :as timestamper]))
 
 (defprotocol Writer
   (bundle-state [this game])
-  (save-game [this directory filename game]))
+  (save-game [this directory id game])
+  (delete-game [this directory id]))
 
-(defrecord FSWriter []
+(defrecord FSWriter [timestamper]
   Writer
   (bundle-state
     [this game]
-    (select-keys game [:board :current :opponent]))
+    (-> game
+        (select-keys [:id :name :board :current :opponent])
+        (assoc :updated (timestamper/current-date timestamper))))
 
   (save-game
-    [this directory filename game]
-    (let [path (path/generate directory filename ".edn")]
+    [this directory id game]
+    (let [path (path/generate directory id)]
       (fs/make-parents path)
-      (->> (.bundle-state this game)
+      (->> game
+           (.bundle-state this)
            (pr-str)
-           (spit path)))))
+           (spit path))))
 
-(defn create-writer []
-  (map->FSWriter {}))
+  (delete-game
+    [this directory id]
+    (-> (path/generate directory id)
+        (fs/delete-file))))
+
+(defn create-writer [timestamper]
+  (map->FSWriter {:timestamper timestamper}))

@@ -1,0 +1,1 @@
+{:id 2, :name "green", :board ["X" empty empty empty "O" empty empty empty empty], :current #tic_tac_toe.players.human.Human{:name "Player 1", :type :human, :token "X"}, :opponent #tic_tac_toe.players.computer.Computer{:name "Player 2", :type :computer, :token "O", :opponent "X"}, :updated "20001031"}

@@ -1,5 +1,5 @@
 (ns tic-tac-toe.mocks.mock-io
-  (:require [tic-tac-toe.io :as io]))
+  (:require [tic-tac-toe.ui.io :as io]))
 
 (defrecord MockIO [value output]
   io/IO

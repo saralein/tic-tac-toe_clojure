@@ -6,7 +6,8 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/data.json "0.2.6"]
                  [org.clojure/math.numeric-tower "0.0.4"]
-                 [org.clojure/core.match "0.3.0-alpha5"]]
+                 [org.clojure/core.match "0.3.0-alpha5"]
+                 [clj-time "0.14.0"]]
   :main ^:skip-aot tic-tac-toe.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

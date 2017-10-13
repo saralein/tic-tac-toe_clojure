@@ -1,8 +1,8 @@
-(ns tic-tac-toe.human
+(ns tic-tac-toe.players.human
   (:require [tic-tac-toe.announcer :as announcer]
-            [tic-tac-toe.player :as player]
+            [tic-tac-toe.players.player :as player]
             [tic-tac-toe.referee :as referee]
-            [tic-tac-toe.user-interface :as ui]))
+            [tic-tac-toe.ui.user-interface :as ui]))
 
 (defrecord Human []
   player/Player

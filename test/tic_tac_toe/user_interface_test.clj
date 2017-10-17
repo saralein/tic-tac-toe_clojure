@@ -4,7 +4,7 @@
         [tic-tac-toe.mocks.mock-io :as io]
         [tic-tac-toe.user-interface :refer :all]))
 
-(def p1-turn "\nPlayer 1's turn.\n")
+(def p1-turn "Player 1's turn.\n")
 (def board (vec (repeat 9 'empty)))
 (def divider "\n--- + --- + ---\n")
 (def row "    |     |    ")
@@ -17,6 +17,8 @@
 (def test-io (io/mock-value-output "4" ""))
 (def test-ui (create-ui test-io exit-called))
 (def test-player (human/create-human-player "X"))
+
+(defn test-func [ui] "test function called")
 
 (deftest displays-a-message
   (update-display test-ui "Hello")

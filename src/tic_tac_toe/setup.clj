@@ -2,7 +2,7 @@
   (:use [clojure.java.io :as fs]
         [tic-tac-toe.menu-selector :only [get-selection]]
         [tic-tac-toe.menu-messages :only [messages]]
-        [tic-tac-toe.save-exit :only [save?]])
+        [tic-tac-toe.save-exit :only [save? save-and-exit]])
   (:require [tic-tac-toe.board :as board]
             [tic-tac-toe.computer :as computer]
             [tic-tac-toe.game :as game]
@@ -17,7 +17,7 @@
 
 (defn- game-options
   [prompt]
-  (hash-map :? (partial game/retry-move prompt) :s save?))
+  (hash-map :? (partial game/retry-move prompt) :s save? :s! save-and-exit))
 
 (defn- setup-board [] (board/make 3))
 

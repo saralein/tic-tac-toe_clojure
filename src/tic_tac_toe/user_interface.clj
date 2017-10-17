@@ -19,6 +19,10 @@
 
 (defrecord ConsoleUI [game-io exit-method]
   UI
+  (clear-src
+    [this]
+    (io/clears game-io))
+
   (update-display
     [this message]
     (io/display game-io (apply str message)))
@@ -31,16 +35,13 @@
 
   (exit
     [this]
+    (clear-src this)
     (exit-method))
 
   (get-input
     [this]
     (->> (io/user-input game-io)
          (.quit? this)))
-
-  (clear-src
-    [this]
-    (io/clears game-io))
 
   (pause
     [this]

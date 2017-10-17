@@ -6,6 +6,11 @@
             [tic-tac-toe.setup :as setup]
             [tic-tac-toe.user-interface :as ui]))
 
+(defn- shutdown-listener
+  [{:keys [ui]}]
+  (.addShutdownHook (Runtime/getRuntime)
+    (Thread. #(ui/clear-src ui))))
+
 (defn play
   [game]
   (loop [{:keys [board ui] :as game} game]
@@ -16,6 +21,7 @@
 
 (defn -main
   []
-  (-> (setup/setup-utils)
-      (setup/setup-game "saves" "game")
-      (play)))
+  (let [utils (setup/setup-utils)]
+    (shutdown-listener utils)
+    (-> (setup/setup-game utils "saves" "game")
+        (play))))

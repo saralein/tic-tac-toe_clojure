@@ -7,24 +7,36 @@
 
 (defprotocol UI
   (update-display [this message])
+  (exit [this])
+  (quit? [this input])
   (get-input [this])
   (clear-src [this])
   (pause [this])
   (prompt-move [this board player][this board player optional])
   (prompt-selection [this message])
   (optional-prompt [this prompt message])
-  (prompt-gameover [this board winner])
-  (exit [this]))
+  (prompt-gameover [this board winner]))
 
-(defrecord ConsoleUI [game-io]
+(defrecord ConsoleUI [game-io exit-method]
   UI
   (update-display
     [this message]
     (io/display game-io (apply str message)))
 
+  (quit?
+    [this input]
+    (if (= nil input)
+      (exit this)
+      input))
+
+  (exit
+    [this]
+    (exit-method))
+
   (get-input
     [this]
-    (io/user-input game-io))
+    (->> (io/user-input game-io)
+         (.quit? this)))
 
   (clear-src
     [this]
@@ -63,11 +75,7 @@
     (->> []
       (presenter/board-display board)
       (announcer/gameover winner)
-      (.update-display this)))
+      (.update-display this))))
 
-  (exit
-    [this]
-    (System/exit 0)))
-
-(defn create-ui [game-io]
-  (map->ConsoleUI {:game-io game-io}))
+(defn create-ui [game-io exit-method]
+  (map->ConsoleUI {:game-io game-io :exit-method exit-method}))

@@ -17,11 +17,11 @@
 (def board-moves ["X", 'empty, 'empty, 'empty,"O", 'empty, 'empty, 'empty, 'empty])
 
 (def game-io (io/create-console-io))
-(def game-ui (ui/create-ui game-io))
+(def game-ui (ui/create-ui game-io #(System/exit 0)))
 (def new-game-io (mock-io/mock-value-output "1" ""))
-(def new-game-ui (mock-ui/create-mock-ui new-game-io))
+(def new-game-ui (mock-ui/create-mock-ui new-game-io #("exit")))
 (def saved-game-io (mock-io/mock-value-output "2" ""))
-(def saved-game-ui (mock-ui/create-mock-ui saved-game-io))
+(def saved-game-ui (mock-ui/create-mock-ui saved-game-io #("exit")))
 (def test-serializer (serializer/create-serializer))
 (def test-reader (create-reader test-serializer))
 (def test-writer (create-writer test-serializer))
@@ -34,7 +34,7 @@
 (deftest sets-up-game-utils
   (testing "returns hash with correct game utils"
     (let [utils (setup-utils)]
-      (is (= game-ui (:ui utils)))
+      (is (= (class game-ui) (class (:ui utils))))
       (is (= test-reader (:reader utils)))
       (is (= test-writer (:writer utils))))))
 

@@ -9,7 +9,7 @@
         [tic-tac-toe.menu-selector :refer :all]))
 
 (def test-io (io/mock-value-output "y" ""))
-(def test-ui (ui/create-mock-ui test-io))
+(def test-ui (ui/create-mock-ui test-io #("exit")))
 (def test-serializer (mock-serializer/create-mock-serializer))
 (def test-reader (create-reader test-serializer))
 (def utils (hash-map :ui test-ui :reader test-reader))

@@ -11,15 +11,29 @@
 (def board-string (str "\n" row divider row divider row "\n\n"))
 (def full-prompt (str p1-turn board-string))
 (def gameover-prompt (str board-string "Game over. It's a draw.\n"))
+(defn exit-called [] "exit requested")
+
 
 (def test-io (io/mock-value-output "4" ""))
-(def test-ui (create-ui test-io))
+(def test-ui (create-ui test-io exit-called))
 (def test-player (human/create-human-player "X"))
 
 (deftest displays-a-message
   (update-display test-ui "Hello")
   (testing "receives a message and displays it"
     (is (= "Hello" @(:output test-io)))))
+
+(deftest checks-input-for-esc
+  (testing "returns input if not nil"
+    (is (= "4" (quit? test-ui "4"))))
+  (testing "returns input if nil string"
+    (is (= "nil" (quit? test-ui "nil"))))
+  (testing "calls exit when input is nil"
+    (is (= "exit requested" (quit? test-ui nil)))))
+
+(deftest calls-exit-methods
+  (testing "exiting called exit method"
+    (is (= "exit requested" (exit test-ui)))))
 
 (deftest gets-input-from-user
   (testing "gets input from user"

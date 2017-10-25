@@ -14,7 +14,7 @@
           :current #tic_tac_toe.players.human.Human{:name "Player 1", :type :human, :token "X"},
           :opponent #tic_tac_toe.players.computer.Computer{:name "Player 2", :type :computer, :token "O", :opponent "X"}})
 (def logs [empty-log log])
-(def prompt "Enter the log number where you'd like to save your game.\n\n[1] ---\n[2] peaches, last played 5 day(s) ago\n\nSelection: ")
+(def prompt "Enter the log number where you'd like to save your game.\n\n[1] ---  \n[2] peaches, last played 5 day(s) ago  \n\nSelection: ")
 
 (deftest formats-log-list-for-display
   (testing "returns a string with log prompts"

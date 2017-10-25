@@ -9,7 +9,7 @@
   :invalid-selection "Your selection is not valid. Please select again.\n\n"
   :no-save "There are no saved games. Please select again.\n\n"
   :select-log "Enter the log number where you'd like to save your game.\n\n%s\n\nSelection: "
-  :empty-log "[%d] ---"
-  :save-log "[%d] %s, last played %s day(s) ago"
+  :empty-log "[%d] ---  "
+  :save-log "[%d] %s, last played %s day(s) ago  "
   :save-exists "This save already exists. Overwrite this save (y/n)? "
   :exit? "Would you like to exit (y/n)? "))

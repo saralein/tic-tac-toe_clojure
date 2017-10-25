@@ -12,4 +12,4 @@
 
 (deftest formats-prompt-with-color
   (testing "colors prompt specified by location"
-    (is (= colorized-prompts (process-color test-colorizer log-prompts 1 highlight)))))
+    (is (= colorized-prompts (process-color test-colorizer highlight 1 log-prompts)))))

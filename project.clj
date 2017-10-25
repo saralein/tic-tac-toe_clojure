@@ -1,4 +1,4 @@
-(defproject tic-tac-toe "0.1.0-SNAPSHOT"
+(defproject tic-tac-toe "1.0.5"
   :description "Tic Tac Toe in Clojure"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"

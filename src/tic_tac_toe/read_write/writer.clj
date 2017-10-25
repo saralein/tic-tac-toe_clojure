@@ -6,7 +6,8 @@
 (defprotocol Writer
   (bundle-state [this game])
   (save-game [this directory id game])
-  (delete-game [this directory id]))
+  (delete-game [this directory id])
+  (delete-quick-save [this directory]))
 
 (defrecord FSWriter [timestamper]
   Writer
@@ -28,7 +29,11 @@
   (delete-game
     [this directory id]
     (-> (path/generate directory id)
-        (fs/delete-file))))
+        (fs/delete-file)))
+
+  (delete-quick-save
+    [this directory]
+    (.delete-game this directory 0)))
 
 (defn create-writer [timestamper]
   (map->FSWriter {:timestamper timestamper}))

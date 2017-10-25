@@ -8,7 +8,8 @@
   (add-time-differential [this directory id game])
   (load-game [this directory filename])
   (read-logs [this directory])
-  (save-exists? [this directory filename]))
+  (save-exists? [this directory filename])
+  (quick-save-exists? [this directory]))
 
 (defrecord FSReader [timestamper]
   Reader
@@ -37,7 +38,11 @@
     [this directory id]
     (-> (path/generate directory id)
         (fs/file)
-        (.exists))))
+        (.exists)))
+
+  (quick-save-exists?
+    [this directory]
+    (.save-exists? this directory 0)))
 
 (defn create-reader [timestamper]
   (map->FSReader {:timestamper timestamper}))

@@ -27,8 +27,8 @@
 
 (def logs (list log-1 log-2 log-3))
 
-(deftest adds-timestamp-to-game-load
-  (testing "something"
+(deftest adds-time-differential-to-game-load
+  (testing "adds time differential (no. days) between last date saved and current date"
     (is (= log-1 (add-time-differential test-reader "test/saves" "1" game-state-stamped)))))
 
 (deftest loads-formatted-game-state

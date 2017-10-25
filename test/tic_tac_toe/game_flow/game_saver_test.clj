@@ -1,15 +1,18 @@
 (ns tic-tac-toe.game-flow.game-saver-test
   (:require [clojure.test :refer :all]
-            [tic-tac-toe.players.computer :as computer]
-            [tic-tac-toe.players.human :as human]
-            [tic-tac-toe.mocks.mock-io :as io]
-            [tic-tac-toe.ui.user-interface :as ui]
             [tic-tac-toe.read-write.timestamper :as timestamper]
+            [tic-tac-toe.read-write.reader :as reader]
             [tic-tac-toe.read-write.writer :as writer]
             [tic-tac-toe.game-flow.game-saver :refer :all]))
 
-(def new-game {:save-called false :name-called false :overwrite-called false})
-(def named-game {:name "Pete" :save-called false :name-called false :overwrite-called false})
+(def test-timestamper (timestamper/create-timestamper))
+(def test-reader (reader/create-reader test-timestamper))
+(def test-writer (writer/create-writer test-timestamper))
+
+(def new-game {:save-called false :name-called false :overwrite-called false
+               :reader test-reader :writer test-writer :dir "test/saves"})
+(def named-game {:name "Pete" :save-called false :name-called false :overwrite-called false
+                 :reader test-reader :write test-writer :dir "test/saves"})
 (def empty-log {})
 (def named-log {:name "Blob"})
 (def same-log {:name "Pete"})

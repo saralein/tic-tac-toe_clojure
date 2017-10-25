@@ -23,35 +23,49 @@
         (save)
         (exiter/exit))))
 
+(defn allow-overwrite
+  [game]
+  (-> game
+      (assoc :overwrite true)))
+
 (def overwrite-options
   (hash-map
-    :y save
-    :n game-to-log/disassociate-name))
+    :y allow-overwrite
+    :n (partial (fn [game] game))))
 
 (defn handle-overwrite
   [{:keys [exit? save-exists] :as game}]
   (get-menu-selection overwrite-options save-exists game))
 
-(defn handle-save-flow
-  [save handle-overwrite name-game log game]
+(defn- verify-overwriting
+  [game log handle-overwrite]
   (cond
-    (game-to-log/both-unnamed game log)
-      (-> game
-          (name-game)
-          (save))
-    (game-to-log/only-one-named game log)
-      (-> game
-          (save))
-    (game-to-log/only-one-named log game)
-      (-> game
-          (name-game)
-          (handle-overwrite))
-    (game-to-log/named-same game log)
-      (-> game
-          (save))
-    (not (game-to-log/named-same game log))
-      (-> game
-          (handle-overwrite))))
+    (or (nil? (:name log))
+        (game-to-log/named-same game log))
+      (allow-overwrite game)
+    (not (nil? (:name log)))
+      (handle-overwrite game)))
+
+(defn- verify-naming
+  [{:keys [name overwrite] :as game} name-game]
+  (if (and (nil? name) (= true overwrite))
+    (name-game game)
+    game))
+
+(defn- verify-saving
+  [{:keys [overwrite] :as game} save]
+  (if (= true overwrite)
+    (save game)
+    game))
+
+(defn handle-save-flow
+  [save handle-overwrite name-game log {:keys [reader writer dir] :as game}]
+  (if (reader/quick-save-exists? reader dir)
+    (writer/delete-quick-save writer dir))
+  (-> game
+      (verify-overwriting log handle-overwrite)
+      (verify-naming name-game)
+      (verify-saving save)))
 
 (defn save?
   [{:keys [reader dir exit? save-exists name] :as game}]

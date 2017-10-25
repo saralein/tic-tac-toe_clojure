@@ -9,23 +9,6 @@
 
 (def game {:ui test-ui :name-save "message"})
 
-(deftest checks-if-game-and-log-are-both-unnamed
-  (testing "returns true if game and log are both unnamed"
-    (is (= true (both-unnamed {} {}))))
-  (testing "returns false if game and/or log are named"
-    (is (= false (both-unnamed {:name "named"} {})))
-    (is (= false (both-unnamed {} {:name "named"})))
-    (is (= false (both-unnamed {:name "named"} {:name "named"})))))
-
-
-(deftest checks-if-only-the-log-or-game-is-named
-  (testing "returns true if only one is named"
-    (is (= true (only-one-named {:name "name"} {}))))
-  (testing "returns false if both are unnamed"
-    (is (= false (only-one-named {} {}))))
-  (testing "returns false if both are named"
-    (is (= false (only-one-named {:name "named"} {:name "named"})))))
-
 (deftest checks-if-game-and-log-have-same-name
   (testing "returns true if both are named the same"
     (is (= true (named-same {:name "name"} {:name "name"}))))
@@ -37,10 +20,6 @@
 (deftest adds-name-to-game
   (testing "adds name as key on game hash"
     (is (= {:id 1 :name "Pete"} (associate-name "Pete" {:id 1})))))
-
-(deftest removes-name-from-game
-  (testing "removes name key/value from unsaved game hash"
-    (is (= {:id 1} (disassociate-name {:id 1 :name "Pete"})))))
 
 (deftest associates-given-id-to-game
   (testing "adds id to games without ids"

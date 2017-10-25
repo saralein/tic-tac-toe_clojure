@@ -2,16 +2,6 @@
   (require [tic-tac-toe.ui.user-interface :as ui]
            [tic-tac-toe.validation.log-validator :as log-validator]))
 
-(defn both-unnamed
-  [game log]
-  (and (nil? (:name game)) (nil? (:name log))))
-
-(defn only-one-named
-  [first second]
-  (-> (:name second)
-      (nil?)
-      (and (not= (:name first) (:name second)))))
-
 (defn named-same
   [game log]
   (-> (:name log)
@@ -24,11 +14,6 @@
   (->> name
        (hash-map :name)
        (merge game)))
-
-(defn disassociate-name
-  [game]
-  (-> game
-      (dissoc :name)))
 
 (defn associate-id
   [{:keys [id]} game]

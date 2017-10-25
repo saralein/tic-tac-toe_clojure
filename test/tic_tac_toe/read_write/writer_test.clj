@@ -30,3 +30,10 @@
     (is (.exists (fs/file "test/saves/1.edn"))))
   (testing "writes correct data to file specified"
     (is (= game-with-diff (reader/load-game test-reader "test/saves" "1")))))
+
+(deftest deletes-quick-save-file
+  (testing "deletes quick save file"
+    (save-game test-writer "test/saves" 0 game)
+    (is (= true (reader/quick-save-exists? test-reader "test/saves")))
+    (delete-quick-save test-writer "test/saves")
+    (is (= false (reader/quick-save-exists? test-reader "test/saves")))))

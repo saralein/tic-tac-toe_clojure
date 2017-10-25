@@ -19,12 +19,16 @@
   (save game)
   (exit game))
 
-(def exit-options (hash-map :y exit :n (partial game/retry-move "")))
+(def exit-options
+  (hash-map
+    :y exit
+    :n (partial game/retry-move "")))
 
 (defn- save-options
   [prompt]
-  (hash-map :y save-and-exit
-            :n (partial get-selection exit-options prompt)))
+  (hash-map
+    :y save-and-exit
+    :n (partial get-selection exit-options prompt)))
 
 (defn save?
   [{:keys [reader dir file]

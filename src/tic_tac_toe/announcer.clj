@@ -6,11 +6,13 @@
 
 (defn announce-turn
   [player message]
-  (conj message (str (:name player) "'s turn.\n")))
+  (->> (str (:name player) "'s turn.\n")
+       (conj message)))
 
 (defn move-request
   [board]
-  (format human-move (count board)))
+  (->> (count board)
+       (format human-move)))
 
 (defn winning-prompt
   [winner]
@@ -20,4 +22,5 @@
 
 (defn gameover
   [winner message]
-  (conj message (winning-prompt winner)))
+  (->> (winning-prompt winner)
+       (conj message)))

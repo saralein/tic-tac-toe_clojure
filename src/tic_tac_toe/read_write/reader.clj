@@ -25,8 +25,8 @@
   (load-game
     [this directory id]
     (->> (path/generate directory id)
-         (slurp)
-         (read-string)
+         slurp
+         read-string
          (.add-time-differential this directory id)))
 
   (read-logs
@@ -37,8 +37,8 @@
   (save-exists?
     [this directory id]
     (-> (path/generate directory id)
-        (fs/file)
-        (.exists)))
+        fs/file
+        .exists))
 
   (quick-save-exists?
     [this directory]

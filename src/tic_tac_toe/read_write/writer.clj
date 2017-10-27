@@ -23,13 +23,13 @@
       (fs/make-parents path)
       (->> game
            (.bundle-state this)
-           (pr-str)
+           pr-str
            (spit path))))
 
   (delete-game
     [this directory id]
     (-> (path/generate directory id)
-        (fs/delete-file)))
+        fs/delete-file))
 
   (delete-quick-save
     [this directory]

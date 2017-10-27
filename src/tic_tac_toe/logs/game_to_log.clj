@@ -5,8 +5,8 @@
 (defn named-same
   [game log]
   (-> (:name log)
-      (nil?)
-      (not)
+      nil?
+      not
       (and (= (:name log) (:name game)))))
 
 (defn associate-name

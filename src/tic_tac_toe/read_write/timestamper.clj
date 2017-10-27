@@ -20,7 +20,7 @@
       [this updated]
       (-> (f/parse date-formatter updated)
           (interval (now))
-          (in-days))))
+          in-days)))
 
 (defn create-timestamper []
   (map->FSTimestamper {}))

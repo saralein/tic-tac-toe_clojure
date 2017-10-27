@@ -5,6 +5,6 @@
 (defn generate-filenames
   []
   (->> number-saves
-       (inc)
+       inc
        (range 1)
        (map #(str %))))

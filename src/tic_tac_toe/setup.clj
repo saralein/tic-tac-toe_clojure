@@ -48,7 +48,7 @@
   [{:keys [reader ui dir load-type quick-save] :as utils}]
   (if (reader/quick-save-exists? reader dir)
     (-> prompt-setup
-        (quick-save-options)
+        quick-save-options
         (get-menu-selection quick-save utils))
     (get-menu-selection load-options load-type utils)))
 
@@ -56,4 +56,4 @@
   [{:keys [ui welcome load-type] :as utils} directory]
   (ui/prompt-selection ui welcome)
   (->> (setup-directory directory utils)
-       (prompt-setup)))
+       prompt-setup))

@@ -24,4 +24,4 @@
   (let [utils (setup/setup-utils)]
     (shutdown-listener utils)
     (-> (setup/setup-game utils "saves")
-        (play))))
+        play)))

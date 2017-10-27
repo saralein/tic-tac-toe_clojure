@@ -30,4 +30,4 @@
   (->> (get-log-selection logs game)
        (partial input-matches-log-id?)
        (filter-logs logs)
-       (first)))
+       first))

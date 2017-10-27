@@ -5,10 +5,10 @@
 (defn valid-name?
   [name]
   (-> name
-      (trim)
-      (count)
-      (zero?)
-      (not)))
+      trim
+      count
+      zero?
+      not))
 
 (defn get-log-ids
   [logs]
@@ -19,7 +19,7 @@
 (defn valid-log?
   [logs input]
   (->> logs
-       (get-log-ids)
+       get-log-ids
        (some #(= input %))
        (not= nil)))
 

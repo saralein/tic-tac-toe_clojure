@@ -1,11 +1,12 @@
-(ns tic-tac-toe.game-test
+(ns tic-tac-toe.game-flow.game-loop-test
   (:require [clojure.test :refer :all]
-            [tic-tac-toe.computer :as computer]
-            [tic-tac-toe.human :as human]
+            [tic-tac-toe.players.computer :as computer]
+            [tic-tac-toe.players.human :as human]
             [tic-tac-toe.mocks.mock-io :as io]
-            [tic-tac-toe.user-interface :as ui]
+            [tic-tac-toe.ui.user-interface :as ui]
+            [tic-tac-toe.read-write.timestamper :as timestamper]
             [tic-tac-toe.read-write.writer :as writer]
-            [tic-tac-toe.game :refer :all]))
+            [tic-tac-toe.game-flow.game-loop :refer :all]))
 
 (def board (vec (repeat 9 'empty)))
 (def board-move (assoc board 4 "X"))
@@ -14,7 +15,8 @@
 (def test-ui-move (ui/create-ui test-io-move #("exit")))
 (def test-io-option (io/mock-value-output "?" ""))
 (def test-ui-option (ui/create-ui test-io-option #("exit")))
-(def test-writer (writer/create-writer))
+(def test-timestamper (timestamper/create-timestamper))
+(def test-writer (writer/create-writer test-timestamper))
 (def test-human (human/create-human-player "X"))
 (def test-computer (computer/create-computer-player "O" "X"))
 (def prompt-func-move (partial ui/prompt-move test-ui-move board test-human))

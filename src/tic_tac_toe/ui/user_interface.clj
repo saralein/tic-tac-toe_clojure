@@ -1,7 +1,7 @@
-(ns tic-tac-toe.user-interface
+(ns tic-tac-toe.ui.user-interface
   (:use [clojure.math.numeric-tower :only [sqrt]]
         [clojure.string :only [join]])
-  (:require [tic-tac-toe.io :as io]
+  (:require [tic-tac-toe.ui.io :as io]
             [tic-tac-toe.announcer :as announcer]
             [tic-tac-toe.presenter :as presenter]))
 

@@ -22,5 +22,6 @@
 
 (defn gameover
   [winner message]
-  (->> (winning-prompt winner)
+  (->> winner
+       (winning-prompt)
        (conj message)))

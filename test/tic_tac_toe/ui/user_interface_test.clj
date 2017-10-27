@@ -1,8 +1,8 @@
-(ns tic-tac-toe.user-interface-test
+(ns tic-tac-toe.ui.user-interface-test
   (:use [clojure.test :refer :all]
-        [tic-tac-toe.human :as human]
+        [tic-tac-toe.players.human :as human]
         [tic-tac-toe.mocks.mock-io :as io]
-        [tic-tac-toe.user-interface :refer :all]))
+        [tic-tac-toe.ui.user-interface :refer :all]))
 
 (def p1-turn "Player 1's turn.\n")
 (def board (vec (repeat 9 'empty)))

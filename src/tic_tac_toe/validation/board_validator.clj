@@ -19,13 +19,13 @@
 (defn remove-empty-patterns
   [patterns]
   (->> (filter #(not (board/is-empty? (first %))) patterns)
-       (flatten)))
+       flatten))
 
 (defn evaluate-board
   [board func]
   (->> (get-matching-patterns board)
        (remove-empty-patterns)
-       (func)))
+       func))
 
 (defn single-token?
   [pattern]

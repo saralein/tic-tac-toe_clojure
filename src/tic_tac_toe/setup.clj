@@ -1,70 +1,59 @@
 (ns tic-tac-toe.setup
   (:use [clojure.java.io :as fs]
-        [tic-tac-toe.menu-selector :only [get-selection]]
-        [tic-tac-toe.menu-messages :only [messages]]
-        [tic-tac-toe.save-exit :only [save? save-and-exit]])
-  (:require [tic-tac-toe.board :as board]
-            [tic-tac-toe.computer :as computer]
-            [tic-tac-toe.game :as game]
-            [tic-tac-toe.human :as human]
-            [tic-tac-toe.io :as io]
+        [tic-tac-toe.menu.menu-selector :only [get-menu-selection]]
+        [tic-tac-toe.menu.menu-messages :only [messages]]
+        [tic-tac-toe.game-flow.game-saver :only [save? quick-save]]
+        [tic-tac-toe.setup.quick-save :only [quick-save-options]])
+  (:require [tic-tac-toe.setup.new-game :as new-game]
+            [tic-tac-toe.setup.saved-game :as saved-game]
+            [tic-tac-toe.game-flow.game-loop :as loop]
+            [tic-tac-toe.ui.io :as io]
             [tic-tac-toe.read-write.reader :as reader]
-            [tic-tac-toe.user-interface :as ui]
+            [tic-tac-toe.read-write.timestamper :as timestamper]
+            [tic-tac-toe.ui.user-interface :as ui]
             [tic-tac-toe.read-write.writer :as writer]))
 
 (declare load-options)
+(declare prompt-setup)
 
 (defn- game-options
   [prompt]
   (hash-map
-    :? (partial game/retry-move prompt)
-    :s save?))
+    :? (partial loop/retry-move prompt)
+    :s save?
+    :s! quick-save))
 
-(defn- setup-board [] {:board (board/make 3)})
-
-(defn- setup-players
-  []
-  (hash-map
-    :current (human/create-human-player "X")
-    :opponent (computer/create-computer-player "O" "X")))
-
-(defn- setup-location
-  [directory filename utils]
-  (assoc utils :dir directory :file filename))
-
-(defn- setup-saved-game
-  [{:keys [reader dir file]
-    {:keys [no-save load-type]} :messages :as utils}]
-  (if (reader/save-exists? reader dir file)
-    (-> (reader/load-game reader dir file)
-        (merge utils))
-    (get-selection load-options no-save load-type utils)))
-
-(defn- setup-new-game
-  [utils]
-  (->> utils
-       (merge (setup-board))
-       (merge (setup-players))))
+(defn- setup-directory
+  [directory utils]
+  (assoc utils :dir directory))
 
 (def load-options
   (hash-map
-    :1 setup-new-game
-    :2 setup-saved-game))
+    :1 new-game/setup-new-game
+    :2 (partial saved-game/setup-saved-game
+          new-game/setup-new-game)))
 
 (defn setup-utils
   []
-  (let [game-io (io/create-console-io)]
-    (hash-map
-      :reader (reader/create-reader)
-      :writer (writer/create-writer)
-      :ui (ui/create-ui game-io #(System/exit 0))
-      :messages messages
-      :options (game-options (:help messages)))))
+  (let [game-io (io/create-console-io)
+        timestamper (timestamper/create-timestamper)]
+    (-> (hash-map
+         :reader (reader/create-reader timestamper)
+         :writer (writer/create-writer timestamper)
+         :ui (ui/create-ui game-io #(System/exit 0))
+         :options (game-options (:help messages)))
+        (merge messages))))
+
+(defn- prompt-setup
+  [{:keys [reader ui dir load-type quick-save] :as utils}]
+  (if (reader/quick-save-exists? reader dir)
+    (-> prompt-setup
+        quick-save-options
+        (get-menu-selection quick-save utils))
+    (get-menu-selection load-options load-type utils)))
 
 (defn setup-game
-  [{:keys [ui]
-    {:keys [welcome load-type]} :messages :as utils}
-    directory filename]
+  [{:keys [ui welcome load-type] :as utils} directory]
   (ui/prompt-selection ui welcome)
-  (->> (setup-location directory filename utils)
-       (get-selection load-options load-type)))
+  (->> (setup-directory directory utils)
+       prompt-setup))

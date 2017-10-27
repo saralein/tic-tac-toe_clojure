@@ -1,10 +1,10 @@
-(ns tic-tac-toe.player-test
+(ns tic-tac-toe.players.player-test
   (:require [clojure.test :refer :all]
-            [tic-tac-toe.computer :as computer]
-            [tic-tac-toe.human :as human]
+            [tic-tac-toe.players.computer :as computer]
+            [tic-tac-toe.players.human :as human]
             [tic-tac-toe.mocks.mock-io :as io]
             [tic-tac-toe.mocks.mock-ui :as ui]
-            [tic-tac-toe.player :refer :all]))
+            [tic-tac-toe.players.player :refer :all]))
 
 (def board (vec (repeat 9 'empty)))
 (def board-partial ["X" "X" "O" "X" "O" "X" 'empty "O" 'empty])

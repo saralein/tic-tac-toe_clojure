@@ -1,8 +1,8 @@
-(ns tic-tac-toe.computer
+(ns tic-tac-toe.players.computer
   (:require [tic-tac-toe.board :as board]
-            [tic-tac-toe.player :as player]
+            [tic-tac-toe.players.player :as player]
             [tic-tac-toe.referee :as referee]
-            [tic-tac-toe.user-interface :as ui]))
+            [tic-tac-toe.ui.user-interface :as ui]))
 
 (declare negamax)
 

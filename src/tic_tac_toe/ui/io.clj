@@ -1,4 +1,4 @@
-(ns tic-tac-toe.io)
+(ns tic-tac-toe.ui.io)
 
 (defprotocol IO
   (user-input [this])

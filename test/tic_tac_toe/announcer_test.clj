@@ -1,7 +1,7 @@
 (ns tic-tac-toe.announcer-test
   (:require [clojure.test :refer :all]
-            [tic-tac-toe.computer :as computer]
-            [tic-tac-toe.human :as human]
+            [tic-tac-toe.players.computer :as computer]
+            [tic-tac-toe.players.human :as human]
             [tic-tac-toe.announcer :refer :all]))
 
 (def p1-turn "Player 1's turn.\n")

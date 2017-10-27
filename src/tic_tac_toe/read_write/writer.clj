@@ -1,7 +1,7 @@
 (ns tic-tac-toe.read-write.writer
   (:use [clojure.java.io :as fs]
         [tic-tac-toe.read-write.pathname :as path]
-        [tic-tac-toe.read-write.timestamper :as timestamper]))
+        [tic-tac-toe.read-write.timestamper]))
 
 (defprotocol Writer
   (bundle-state [this game])
@@ -15,7 +15,7 @@
     [this game]
     (-> game
         (select-keys [:id :name :board :current :opponent])
-        (assoc :updated (timestamper/current-date timestamper))))
+        (assoc :updated (current-date timestamper))))
 
   (save-game
     [this directory id game]

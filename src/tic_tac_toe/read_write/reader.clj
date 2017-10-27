@@ -2,7 +2,7 @@
   (:use [clojure.java.io :as fs]
         [tic-tac-toe.read-write.filenames :as filenames]
         [tic-tac-toe.read-write.pathname :as path]
-        [tic-tac-toe.read-write.timestamper :as timestamper]))
+        [tic-tac-toe.read-write.timestamper]))
 
 (defprotocol Reader
   (add-time-differential [this directory id game])
@@ -19,7 +19,7 @@
       file
       (->> file
            (:updated)
-           (timestamper/date-difference timestamper)
+           (date-difference timestamper)
            (assoc file :time-diff))))
 
   (load-game
